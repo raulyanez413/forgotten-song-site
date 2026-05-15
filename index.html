@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Forgotten Song</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+   .music-notes-front {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.music-notes-front span {
+  position: absolute;
+  top: -10%;
+  color: rgba(255, 220, 120, 0.9);
+  font-size: 30px;
+  animation: fallingNotes linear infinite;
+  text-shadow: 0 0 14px rgba(255, 215, 100, 0.9);
+}
+
+.music-notes-front span:nth-child(1) {
+  left: 12%;
+  animation-duration: 14s;
+}
+
+.music-notes-front span:nth-child(2) {
+  left: 28%;
+  animation-duration: 18s;
+  animation-delay: 2s;
+}
+
+.music-notes-front span:nth-child(3) {
+  left: 46%;
+  animation-duration: 16s;
+  animation-delay: 4s;
+}
+
+.music-notes-front span:nth-child(4) {
+  left: 63%;
+  animation-duration: 20s;
+  animation-delay: 1s;
+}
+
+.music-notes-front span:nth-child(5) {
+  left: 79%;
+  animation-duration: 15s;
+  animation-delay: 5s;
+}
+
+.music-notes-front span:nth-child(6) {
+  left: 92%;
+  animation-duration: 17s;
+  animation-delay: 3s;
+}
+
+@keyframes fallingNotes {
+  from {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(120vh) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+.music-notes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.music-notes span {
+  position: absolute;
+  color: rgba(255, 215, 100, 0.7);
+  font-size: 24px;
+  animation: floatNotes linear infinite;
+  text-shadow: 0 0 10px rgba(255, 215, 100, 0.8);
+}
+
+.music-notes span:nth-child(1) {
+  left: 10%;
+  animation-duration: 18s;
+}
+
+.music-notes span:nth-child(2) {
+  left: 20%;
+  animation-duration: 22s;
+  animation-delay: 3s;
+}
+
+.music-notes span:nth-child(3) {
+  left: 35%;
+  animation-duration: 20s;
+  animation-delay: 6s;
+}
+
+.music-notes span:nth-child(4) {
+  left: 50%;
+  animation-duration: 25s;
+  animation-delay: 2s;
+}
+
+.music-notes span:nth-child(5) {
+  left: 65%;
+  animation-duration: 19s;
+  animation-delay: 5s;
+}
+
+.music-notes span:nth-child(6) {
+  left: 78%;
+  animation-duration: 24s;
+  animation-delay: 1s;
+}
+
+.music-notes span:nth-child(7) {
+  left: 88%;
+  animation-duration: 21s;
+  animation-delay: 4s;
+}
+
+.music-notes span:nth-child(8) {
+  left: 95%;
+  animation-duration: 26s;
+  animation-delay: 7s;
+}
+
+@keyframes floatNotes {
+  from {
+    transform: translateY(110vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #020617;
+  color: white;
+  line-height: 1.6;
+}
+
+main,
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background:
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.35), transparent 40%),
+    radial-gradient(circle at bottom, rgba(194, 65, 12, 0.30), transparent 45%),
+    #020617;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.tagline {
+  display: inline-block;
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  background: rgba(96, 165, 250, 0.12);
+  color: #bfdbfe;
+  padding: 10px 16px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(52px, 8vw, 88px);
+  line-height: 0.95;
+  margin-bottom: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  animation: titleGlow 8s infinite alternate;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.15),
+    0 0 25px rgba(59,130,246,0.4);
+}
+@keyframes titleGlow {
+
+  0% {
+    color: #93c5fd;
+    text-shadow:
+      0 0 12px rgba(147,197,253,0.8),
+      0 0 35px rgba(59,130,246,0.5);
+  }
+
+  25% {
+    color: #f97316;
+    text-shadow:
+      0 0 12px rgba(249,115,22,0.8),
+      0 0 35px rgba(249,115,22,0.5);
+  }
+
+  50% {
+    color: #38bdf8;
+    text-shadow:
+      0 0 12px rgba(56,189,248,0.8),
+      0 0 35px rgba(56,189,248,0.5);
+  }
+
+  75% {
+    color: #4ade80;
+    text-shadow:
+      0 0 12px rgba(74,222,128,0.8),
+      0 0 35px rgba(74,222,128,0.5);
+  }
+
+  100% {
+    color: #c084fc;
+    text-shadow:
+      0 0 12px rgba(192,132,252,0.8),
+      0 0 35px rgba(192,132,252,0.5);
+  }
+}
+
+.book-one {
+  color: #cbd5e1;
+  font-size: 22px;
+  margin-bottom: 28px;
+}
+
+.description {
+  color: #cbd5e1;
+  font-size: 20px;
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 15px 24px;
+  border-radius: 16px;
+  transition: 0.2s ease;
+}
+
+.button.primary {
+  background: #2563eb;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+.button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.button.orange {
+  background: #f97316;
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.3);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.cover-card {
+  width: 320px;
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  margin: 0 auto;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #1e3a8a, #020617, #7c2d12);
+  box-shadow: 0 25px 80px rgba(59, 130, 246, 0.25);
+  overflow: hidden;
+  padding: 0;
+}
+
+.cover-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 28px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 320px;
+  margin: 0 auto;
+}
+
+.music-player {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 20px;
+  max-width: 460px;
+}
+
+.music-player h2 {
+  color: #bfdbfe;
+  margin-bottom: 14px;
+  font-size: 24px;
+}
+
+.music-player audio {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.music-player select {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  font-size: 16px;
+}
+.video-button {
+  width: 320px;
+  padding: 15px 22px;
+  border: none;
+  border-radius: 16px;
+  background: #f97316;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.3);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.2s ease;
+}
+
+.video-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.section {
+  padding: 80px 20px;
+  background: rgba(15, 23, 42, 0.75);
+}
+
+.cards {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.card h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #bfdbfe;
+}
+
+.card p {
+  color: #cbd5e1;
+}
+
+.gallery-section {
+  padding: 90px 20px;
+  background: #0f172a;
+  text-align: center;
+}
+
+.gallery-section h2 {
+  font-size: 48px;
+  margin-bottom: 50px;
+  color: #bfdbfe;
+}
+
+.gallery-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.gallery-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(59,130,246,0.2);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+}
+
+.gallery-card h3 {
+  font-size: 28px;
+  margin: 20px 0 10px;
+  color: #93c5fd;
+}
+
+.gallery-card p {
+  padding: 0 20px 24px;
+  color: #cbd5e1;
+}
+
+.final {
+  padding: 90px 20px;
+  text-align: center;
+}
+
+.final h2 {
+  font-size: clamp(36px, 6vw, 56px);
+  margin-bottom: 20px;
+}
+
+.final p {
+  color: #cbd5e1;
+  font-size: 21px;
+  max-width: 760px;
+  margin: 0 auto 32px;
+}
+.tome-section {
+  padding: 90px 20px;
+  background: #020617;
+  text-align: center;
+}
+
+.tome-section h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  color: #facc15;
+  margin-bottom: 15px;
+}
+
+.tome-section p {
+  color: #cbd5e1;
+  font-size: 20px;
+  margin-bottom: 35px;
+}
+
+.magic-tome {
+  width: min(520px, 90%);
+  border-radius: 24px;
+  cursor: pointer;
+  box-shadow: 0 25px 80px rgba(250, 204, 21, 0.25);
+  transition: 0.3s ease;
+}
+.tome-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.tome-book {
+  position: relative;
+  width: min(1100px, 96vw);
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: linear-gradient(90deg, #8b5e34, #f5deb3 48%, #d6b98c 52%, #8b5e34);
+  border-radius: 28px;
+  border: 4px solid #7c4a1e;
+  box-shadow: 0 0 80px rgba(250, 204, 21, 0.35);
+  overflow: hidden;
+  animation: tomeOpen 0.5s ease forwards;
+}
+
+@keyframes tomeOpen {
+  from {
+    transform: scale(0.7) rotateX(20deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) rotateX(0);
+    opacity: 1;
+  }
+}
+
+.tome-page {
+  padding: 45px 35px;
+  color: #2b1608;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.45), transparent 35%),
+    #ead2a5;
+}
+
+.left-page {
+  border-right: 3px solid rgba(92, 54, 20, 0.45);
+
+  max-height: 650px;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+.tome-page h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #4a250c;
+}
+
+.tome-page button {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px;
+  border: 1px solid rgba(74, 37, 12, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 248, 220, 0.7);
+  color: #2b1608;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  font-size: 18px;
+}
+
+.tome-page button:hover {
+  background: rgba(250, 204, 21, 0.35);
+}
+
+#tomeEntryText {
+  font-size: 19px;
+  margin-bottom: 22px;
+}
+
+#tomeEntryImage {
+  width: 100%;
+  max-height: 430px;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.close-tome {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 2;
+  background: #4a250c;
+  color: white;
+  border: none;
+  font-size: 32px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.magic-tome:hover {
+  transform: scale(1.04);
+  box-shadow: 0 30px 100px rgba(250, 204, 21, 0.45);
+}
+@media (max-width: 800px) {
+  .container,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .cover-card,
+  .video-button,
+  .right-panel {
+    width: 280px;
+  }
+
+  .music-player {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+ 
+
+  </style>
+</head>
+
+<body>
+
+  <div class="music-notes-front">
+    <span>♪</span>
+    <span>♫</span>
+    <span>♩</span>
+    <span>♬</span>
+    <span>♪</span>
+    <span>♫</span>
+  </div>
+
+  <div class="music-notes">
+    <span>♪</span>
+    <span>♫</span>
+    <span>♩</span>
+    <span>♬</span>
+    <span>♪</span>
+    <span>♫</span>
+    <span>♩</span>
+    <span>♬</span>
+  </div>
+
+  <main class="hero">
+    <div class="container">
+
+      <div>
+        <div class="tagline">
+          A fantasy adventure where music becomes magic
+        </div>
+
+        <h1>
+          The Forgotten <span class="blue">Song</span>
+        </h1>
+
+        <p class="book-one">Book One</p>
+
+        <p class="description">
+          Four siblings. One rock band. A world on the edge of collapse.
+          When music awakens an ancient power long erased from memory,
+          they must learn to survive as heroes in a land that was never
+          meant to hear their song again.
+        </p>
+<div class="buttons">
+  <a class="button primary"
+     href="https://a.co/d/0c4gNilj"
+     target="_blank">
+    Buy on Amazon
+  </a>
+
+  <a class="button secondary" href="#about">
+    Read About the Story
+  </a>
+</div>
+
+<div class="music-player">
+  <h2>Book Soundtrack</h2>
+
+  <audio id="audioPlayer" controls>
+    <source id="audioSource"
+            src="music/battle.mp3"
+            type="audio/mpeg">
+  </audio>
+
+  <select id="songSelector" onchange="changeSong()">
+    <option value="music/battle.mp3">Battle of Ages</option>
+    <option value="music/moonlit-monsterfall.mp3">Moonlit Monsterfall</option>
+    <option value="music/pale-moonlight-charge.mp3">Pale Moonlight Charge</option>
+    <option value="music/song4.mp3">Song 4</option>
+    <option value="music/song5.mp3">Song 5</option>
+  </select>
+</div>
+</div>
+
+<div class="right-panel">
+
+  <div class="cover-card">
+    <img src="images/cover.jpg"
+         alt="The Forgotten Song book cover">
+  </div>
+
+  <a 
+  class="video-button"
+  href="https://www.youtube.com/watch?v=EWpeZy2es8o"
+  target="_blank">
+  Watch Music Video
+</a>
+
+</div>
+
+</div>
+</main>
+
+<section id="about" class="section">
+  <div class="cards">
+
+    <div class="card">
+      <h3>Music Magic</h3>
+      <p>
+        Rhythm, harmony, and instruments become the key
+        to shaping mana and changing battlefields.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Monster Battles</h3>
+      <p>
+        The band faces creatures, cultists, and ancient
+        threats while learning what their power can truly do.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>LitRPG Adventure</h3>
+      <p>
+        System messages, temples, skills, trials,
+        and evolving powers drive the journey forward.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="tome-section">
+  <h2>World Bible</h2>
+  <p>Open the tome to explore the people, places, and legends of The Forgotten Song.</p>
+
+  <img 
+    src="images/magic-tome.png" 
+    alt="Magic Tome" 
+    class="magic-tome"
+    onclick="openTome()"
+  >
+</section>
+
+<div id="tomeModal" class="tome-modal">
+  <div class="tome-book">
+
+    <button class="close-tome" onclick="closeTome()">×</button>
+
+    <div class="tome-page left-page">
+      <h2>People</h2>
+
+      <button onclick="showTomeEntry('Albert Blackstone', 'Master dwarven blacksmith known for forging instruments and weapons from Starsteel.', 'images/albert-profile.png')">
+        Albert Blackstone
+      </button>
+
+      <button onclick="showTomeEntry('King Aldric Valerian', 'Ruler of the Human Kingdom and protector of the capital.', 'images/king-aldric-profile.png')">
+        King Aldric
+      </button>
+
+      <button onclick="showTomeEntry('Queen Elira Valerian', 'Queen of the Human Kingdom.', 'images/queen-elira-profile.png')">
+        Queen Elira
+      </button>
+
+      <button onclick="showTomeEntry('Commander Thornblade', 'High Commander of the royal army.', 'images/thornblade-profile.png')">
+        Commander Thornblade
+      </button>
+
+      <button onclick="showTomeEntry('Captain Garrik', 'Veteran captain of the Human Kingdom army known for his discipline and battlefield leadership.', 'images/captain-garrik-profile.png')">
+        Captain Garrik
+      </button>
+
+      <button onclick="showTomeEntry('Mage Leo', 'A skilled royal mage of the Human Kingdom who aided the group during the defense of the capital.', 'images/mage-leo-profile.png')">
+        Mage Leo
+      </button>
+
+      <button onclick="showTomeEntry('Lyarieth Moonwhisper', 'Elven ranger and granddaughter of the legendary artisan Elaria Moonwhisper.', 'images/lyarieth-profile.png')">
+        Lyarieth
+      </button>
+
+      <button onclick="showTomeEntry('Sylwen Starbloom', 'Elite elven blade dancer.', 'images/sylwen-profile.png')">
+        Sylwen
+      </button>
+
+      <button onclick="showTomeEntry('Thalion', 'Elven warrior and defender of the capital.', 'images/thalion-profile.png')">
+        Thalion
+      </button>
+
+      <button onclick="showTomeEntry('King Aelarion Thalendor', 'King of the Elven Kingdom.', 'images/aelarion-profile.png')">
+        King Aelarion
+      </button>
+
+      <button onclick="showTomeEntry('Queen Lyrielle Thalendor', 'Queen of the Elven Kingdom.', 'images/lyrielle-profile.png')">
+        Queen Lyrielle
+      </button>
+
+      <button onclick="showTomeEntry('Lucille', 'The System administrator connected to the ancient temples. Calm, intelligent, and far more aware than most realize.', 'images/lucille-profile.png')">
+        Lucille
+      </button>
+    </div>
+
+    <div class="tome-page right-page">
+      <h2 id="tomeEntryName">World Archive</h2>
+      <p id="tomeEntryText">Choose a name from the left page.</p>
+
+      <img 
+        id="tomeEntryImage" 
+        src="images/magic-tome.png" 
+        alt="World Archive Image"
+      >
+    </div>
+
+  </div>
+</div>
+
+<section class="gallery-section">
+  <h2>World of The Forgotten Song</h2>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-card">
+      <img src="images/riza-profile.png" alt="Riza">
+      <h3>Riza</h3>
+      <p>
+        The calm strategist of the group.
+        Her violin controls flowing water and ice magic.
+      </p>
+    </div>
+
+    <div class="gallery-card">
+      <img src="images/johnny-profile.png" alt="Johnny">
+      <h3>Johnny</h3>
+      <p>
+        An aggressive guitarist who channels destructive
+        lightning through heavy riffs.
+      </p>
+    </div>
+
+    <div class="gallery-card">
+      <img src="images/jason-profile.png" alt="Jason">
+      <h3>Jason</h3>
+      <p>
+        A drummer capable of reshaping the battlefield
+        with earth magic and rhythm.
+      </p>
+    </div>
+
+    <div class="gallery-card">
+      <img src="images/jaz-profile.png" alt="Jaz">
+      <h3>Jaz</h3>
+      <p>
+        The singer whose voice amplifies allies
+        and unleashes devastating wind magic.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="final">
+  <h2>They weren’t warriors.</h2>
+
+  <p>
+    They were a rock band. But when another world summons
+    them as its last hope, their music becomes the one
+    power capable of awakening what history tried to bury.
+  </p>
+
+  <a class="button orange"
+     href="https://a.co/d/0c4gNilj"
+     target="_blank">
+    Get the Book
+  </a>
+</section>
+
+<script>
+  function changeSong() {
+    const player = document.getElementById("audioPlayer");
+    const source = document.getElementById("audioSource");
+    const selector = document.getElementById("songSelector");
+
+    source.src = selector.value;
+    player.load();
+    player.play();
+  }
+
+  function openTome() {
+    document.getElementById("tomeModal").style.display = "flex";
+  }
+
+  function closeTome() {
+    document.getElementById("tomeModal").style.display = "none";
+  }
+
+  function showTomeEntry(name, text, image) {
+    document.getElementById("tomeEntryName").textContent = name;
+    document.getElementById("tomeEntryText").textContent = text;
+    document.getElementById("tomeEntryImage").src = image;
+  }
+</script>
+
+</body>
+</html>
